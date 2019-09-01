@@ -11,6 +11,9 @@ Auth::routes();
 Route::get('contact', 'ContactController@index')->name('contact');
 
 
+Route::redirect('/admin', '/admin/dashboard', 301);
+Route::redirect('/auteur', '/auteur/dashboard', 301);
+
 ///ADMIN
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
@@ -23,11 +26,24 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         Route::post('update_categorie', 'CategorieController@update')->name('update_categorie');
         Route::get('delete_categorie/{id}', 'CategorieController@delete')->name('delete_categorie');
 
+        // Roles
+        Route::get('liste_roles', 'RoleController@show')->name('liste_roles');
+        Route::get('create_role_view', 'RoleController@create_role_view')->name('create_role_view');
+        Route::post('create_role', 'RoleController@store')->name('create_role');
+        Route::get('edit_role/{id}', 'RoleController@edit')->name('edit_role');
+        Route::post('update_role', 'RoleController@update')->name('update_role');
+        Route::get('delete_role/{id}', 'RoleController@delete')->name('delete_role');
+
 });
 
 //AUTEUR
 Route::group(['as' => 'auteur.', 'prefix' => 'auteur', 'namespace' => 'Auteur', 'middleware' => ['auth', 'auteur']], function () {
-	Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+
+    //Posts
+    Route::get('posts','PostController@show')->name('posts');
+    Route::get('create_post','PostController@create_post')->name('create_post');
+    Route::post('create_post','PostController@store')->name('create_post');
 });
 
 
