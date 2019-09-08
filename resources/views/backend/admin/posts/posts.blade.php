@@ -1,17 +1,11 @@
 @extends('backend.layout')
 
 
-@section('titre_page')  Mes Articles
-<a href="{{ route('auteur.create_post')  }}" class="btn btn-lg btn-primary">
-    <i class="fa fa-plus" aria-hidden="true"></i>
-    </a>
-@endsection
+@section('titre_page') Gestion des Articles @endsection
 
 @push('css')
   <link href="{{ asset('backend/js/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 @endpush
-
-
 
 
 
@@ -20,32 +14,40 @@
 
 <div class="card shadow col-md-12">
         <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">Roles</h6>
+          <h6 class="m-0 font-weight-bold text-primary">Artices</h6>
         </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
+                  <th>Auteur</th>
                   <th>Titre</th>
                   <th>Description</th>
-                  <!--th>Contenu</!th-->
                   <th>Etat</th>
-                  <th>categorie</th>
+                  <th>Categorie</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                   @foreach ($posts as $p )
                     <tr>
+                        <td>{{ $p->user->email }}</td>
                         <td>{{ $p->titre }}</td>
                         <td>{{ $p->description }}</td>
-                        <!--td>{{  str_limit($p->contenu, $limit = 50, $end = ' ... etc ...') }}</td-->
-                        <td>{{ $p->status }}</td>
+                        <td> @if($p->status == 1)
+                                <span class="alert alert-success">Activé</span>
+                             @elseif($p->status == 0)
+                             <span class="alert alert-danger">Non Activé</span>
+                             @endif
+                        </td>
                         <td>{{ $p->categorie->name }}</td>
                         <td>
-                            <a href="{{  route('auteur.edit_post',$p->id) }}">Edit</a> |
-                            <a href="{{  route('auteur.delete_post',$p->id) }}">Delete</a>
+                            @if($p->status == 0)
+                                <a class="btn btn-block btn-success" href="{{ route('admin.update_status_post', $p->id) }}">Aciver</a>
+                            @elseif($p->status == 1)
+                                <a class="btn btn-block btn-danger" href="{{ route('admin.update_status_post', $p->id) }}">Desactiver</a>
+                            @endif
                         </td>
                     </tr>
                   @endforeach
@@ -54,11 +56,10 @@
                 <tr>
                         <th>Titre</th>
                         <th>Description</th>
-                        <!--th>Contenu</!th-->
                         <th>Etat</th>
-                        <th>categorie</th>
-                        <th>Actions</th>
-                </tr>
+                        <th>Categorie</th>
+                        <th>Image</th>
+                        <th>Actions</th>                </tr>
               </tfoot>
               <tbody>
               </tbody>

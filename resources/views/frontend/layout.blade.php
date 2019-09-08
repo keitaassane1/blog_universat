@@ -12,7 +12,8 @@
 
 @include('frontend.partials.menu')
 
-  @include('frontend.partials.header')
+
+@include('frontend.partials.header')
   <div class="container">
       @yield('content')
   </div>

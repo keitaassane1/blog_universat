@@ -4,9 +4,10 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
-            <h1> {{ env('APP_NAME') }} </h1>
-            <span class="subheading">{{ env('APP_TITRE_DESCRIPTION')  }}
-</span>
+            <h1> @yield('titre_post', env('APP_NAME'))</h1>
+            <span class="subheading">
+                    @yield('description_post',  env('APP_TITRE_DESCRIPTION'))
+            </span>
           </div>
         </div>
       </div>
