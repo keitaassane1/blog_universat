@@ -41,7 +41,10 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 });
 
 //AUTEUR
-Route::group(['as' => 'auteur.', 'prefix' => 'auteur', 'namespace' => 'Auteur', 'middleware' => ['auth', 'auteur']], function () {
+Route::group(['as' => 'auteur.',
+             'prefix' => 'auteur',
+             'namespace' => 'Auteur',
+             'middleware' => ['auth', 'auteur']], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
     //Posts
